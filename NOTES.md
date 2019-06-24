@@ -108,3 +108,34 @@ https://www.blazingsword.org - Has pretty much the same idea, but LGBTQ specific
 https://dribbble.com/shots/6625574-Project-Management-Tool - Clean Google looking interface
 https://www.grubhub.com/restaurant/sabai-modern-thai-4121-e-thomas-rd-phoenix/245999 - I really like GrubHub’s style, and it’s built in React.
 https://webflow.com/blog/20-web-design-trends-for-2019 - Good current design trends.
+
+## DEVLOG 06/23/2019
+I built the initial API scaffold today. We're encountering some issues around model relationships.
+User currently self joins through Meeting, but it doesn't function the way I want it to. A meeting is created for each association of a student to a teacher (which is how a join table works, but that isn't what I want).
+I think I may need another join table? 
+Or I could just cave and do separate models for Teacher and Student. =/
+
+Either way, good progress today. The rails server is up and running, and once I figure out the relationships, I can move on to adding some seed data.
+
+I should think more about the narrative of this application. A User signs up and decides to be a teacher or a student. Teachers can create Meetings, which are informational courses about firearms. Meetings can be browsed by location or by teacher. A student can 'attend' a meeting.
+
+We need another join table, I was right.
+
+MeetingEnrollement
+------------------
+belongs_to :student
+belongs_to :meeting
+
+Meeting
+------------
+belongs_to :teacher
+has_many :students, through: :meetingenrollment
+
+Teacher
+----------------
+has_many :students, through: :meetings
+
+Student
+-------------------
+has_many :teachers, through: :meetings
+has_many :meetings, through: :meetingenrollment
