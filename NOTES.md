@@ -27,6 +27,7 @@ email: string
 student: boolean
 teacher: boolean
 password_digest (bcrypt)
+
 belongs_to :location
 self-referential many-to-many through meetings. Ready?
 has_many :students, through: :student_meetings, source: :student
@@ -42,10 +43,11 @@ start_date: datetime
 end_date: datetime
 subject: string (purpose of the meeting)
 description:string (additional information)
+
 belongs_to location
 join table for many-to-many self-join of users
 belongs_to :teacher, foreign_key: "teacher_id", class_name: "User"
-belongs_to :student, foreign_kay: "student_id", class_name: "User"
+belongs_to :student, foreign_key: "student_id", class_name: "User"
 has_many :students
 belongs_to :teacher
 

@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.boolean :student
       t.boolean :teacher
       t.string :password_digest
+      t.integer :location_id
 
       t.timestamps
     end
